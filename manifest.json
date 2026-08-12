@@ -1,0 +1,25 @@
+{
+  "name": "Audition Coach",
+  "short_name": "Audition Coach",
+  "description": "A confidence-first family audition practice app.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#6f4cff",
+  "theme_color": "#6f4cff",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#6f4cff">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Audition Coach">
+<title>Audition Coach</title>
+<style>
+:root{--ink:#29243a;--muted:#746d83;--purple:#6f4cff;--pink:#ff6fae;--line:#e9e2f3;--soft:#f5f0ff;--mint:#eefaf3;--shadow:0 14px 35px rgba(69,46,104,.11)}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:#6f4cff}body{font-family:ui-rounded,"SF Pro Rounded",system-ui,-apple-system,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 0%,#ffe9f4 0,transparent 28%),radial-gradient(circle at 100% 7%,#eae6ff 0,transparent 30%),linear-gradient(#fff,#fbf9ff);min-height:100vh}button,input,select{font:inherit}
+.app{max-width:880px;margin:auto;padding:12px 12px 90px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 2px 12px}.logo{display:flex;gap:10px;align-items:center}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--purple),var(--pink));display:grid;place-items:center;color:#fff;font-size:22px}.logo h1{font-size:1.08rem;margin:0}.logo p{font-size:.78rem;color:var(--muted);margin:2px 0 0}.switchBtn{border:1px solid var(--line);background:#fff;border-radius:13px;padding:9px 11px;font-weight:850}
+.hero{background:linear-gradient(135deg,#6f4cff,#8d61ff 58%,#ff78b5 140%);color:#fff;border-radius:26px;padding:22px 19px;box-shadow:0 16px 36px rgba(111,76,255,.22)}.hero h2{font-size:1.9rem;margin:6px 0}.hero p{line-height:1.45;opacity:.95}.startbox{background:#fff;color:var(--ink);border-radius:20px;padding:16px;margin-top:16px}.starter{font-size:1.5rem;font-weight:950;margin:6px 0}.primary,.save{border:0;border-radius:15px;padding:14px 16px;font-weight:950;color:#fff;background:linear-gradient(135deg,var(--pink),#ff8d72);width:100%;margin-top:11px}.save{background:var(--purple)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:13px 0}.tab{border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 6px;font-size:.86rem;font-weight:850;color:var(--muted)}.tab.active{background:var(--purple);color:#fff}.view{display:none}.view.active{display:block}.card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:17px;box-shadow:var(--shadow);margin-bottom:12px}.card h2{margin:0 0 7px;font-size:1.13rem}.muted{color:var(--muted);font-size:.86rem;line-height:1.4}
+.practice{max-width:640px;margin:auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:27px;padding:22px 17px;box-shadow:var(--shadow)}.prompt{background:linear-gradient(135deg,#f5f0ff,#fff1f7);border-radius:18px;padding:16px;margin:14px 0}.promptText{font-size:1.65rem;font-weight:950}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.secondary{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;font-weight:850}.recordBox{margin-top:15px;background:#fff7fb;border:1px solid var(--line);border-radius:18px;padding:14px}.recordBtn{border:0;width:100%;border-radius:15px;padding:14px;font-weight:950;color:#fff;background:linear-gradient(135deg,#ff5f8f,#ff8b6f)}.recordBtn.recording{background:#e94f64}.playback{display:none;margin-top:12px}.playback.show{display:block}.playback audio{width:100%}.feelRow{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.feel{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px;font-weight:850;font-size:.8rem}
+.points{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.bubble{min-width:82px;text-align:center;color:#fff;background:linear-gradient(135deg,var(--purple),var(--pink));border-radius:17px;padding:10px}.bubble b{font-size:1.55rem;display:block}.bar{height:11px;background:#eee8f5;border-radius:999px;overflow:hidden;margin-top:8px}.bar>div{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:999px}
+.field{margin:10px 0}.field label{display:block;font-size:.84rem;font-weight:850;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:13px;padding:11px;background:#fff}.hidden{display:none!important}
+.overlay{position:fixed;inset:0;z-index:10000;background:linear-gradient(145deg,#6f4cff,#8e63ff 48%,#ff74b4 110%);display:none;align-items:center;justify-content:center;padding:20px}.overlay.show{display:flex}.panel{width:min(560px,100%);background:#fff;border-radius:26px;padding:22px;box-shadow:0 20px 50px rgba(35,20,70,.24)}.panel h1,.panel h2{text-align:center;margin:0 0 8px}.profileButtons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.profileBtn{border:1px solid var(--line);background:#faf8ff;border-radius:18px;padding:18px 8px;font-weight:950}.profileBtn span{font-size:30px;display:block;margin-bottom:5px}
+.welcome{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:calc(12px + env(safe-area-inset-top)) 20px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(145deg,#6f4cff,#8e63ff 48%,#ff74b4 110%);color:#fff}.welcome.show{display:flex}.welcomeInner{text-align:center;width:min(560px,100%)}.welcome h1{font-size:2.45rem;line-height:1.03;margin:0}.welcome p{font-size:1.03rem;line-height:1.45}.welcomeCard{background:#fff;color:var(--ink);border-radius:23px;padding:17px;margin-top:18px;text-align:left}.welcomeCard .primary{text-align:center}
+@media(max-width:620px){.tabs{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr}.feelRow{grid-template-columns:1fr}.profileButtons{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<audio id="welcomeChime" src="welcome-chime.wav" preload="auto"></audio>
+
+<div class="overlay" id="profileOverlay">
+  <div class="panel">
+    <h2>Who’s practicing today? 🎭</h2>
+    <p class="muted" style="text-align:center">Each performer keeps separate points, prompts, and practice history.</p>
+    <div class="profileButtons" id="profileButtons"></div>
+    <button class="save" id="manageProfiles">Manage names</button>
+  </div>
+</div>
+
+<div class="welcome" id="welcome">
+  <div class="welcomeInner">
+    <div style="font-size:32px">✦ ✨ ✦</div>
+    <h1 id="welcomeTitle">Welcome!</h1>
+    <p id="welcomeTag">One little run. Zero pressure. Big confidence.</p>
+    <div class="welcomeCard">
+      <b>Today’s vibe:</b>
+      <p class="muted">Start small. If you blank, reset. If you nail it, awesome. Either way, showing up counts.</p>
+      <button class="primary" id="enterApp">Let’s do this ✨</button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+<header class="top">
+  <div class="logo"><div class="mark">✦</div><div><h1>Audition Coach</h1><p id="profileLabel">small steps • big confidence</p></div></div>
+  <button class="switchBtn" id="switchProfile">Switch</button>
+</header>
+
+<section class="hero">
+  <div style="font-weight:900;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;opacity:.9">Today’s mini mission</div>
+  <h2>Ready to crush one little run?</h2>
+  <p>You don’t have to do the whole thing perfectly. Get started, keep the story moving, and stop while it still feels good.</p>
+  <div class="startbox">
+    <div class="muted" style="font-weight:900">STARTER WORDS</div>
+    <div class="starter" id="starterDisplay">Add your starter words</div>
+    <button class="primary" id="heroStart">Let’s do this ✨</button>
+  </div>
+</section>
+
+<nav class="tabs">
+  <button class="tab active" data-view="home">Home</button>
+  <button class="tab" data-view="practice">Practice</button>
+  <button class="tab" data-view="hints">My Hints</button>
+  <button class="tab" data-view="parent">Parent</button>
+</nav>
+
+<section id="home" class="view active">
+  <div class="card">
+    <div class="points">
+      <div><h2>⭐ My Stage Stars</h2><div class="muted">Points reward practicing, not being perfect.</div></div>
+      <div class="bubble"><b id="points">0</b><span>STARS</span></div>
+    </div>
+    <div style="margin-top:12px;font-weight:900">Today: <span id="todayRuns">0</span> practice runs</div>
+  </div>
+
+  <div class="card hidden" id="rewardCard">
+    <h2>🎁 My Reward Goal</h2>
+    <div id="rewardText" style="font-weight:900"></div>
+    <div class="bar"><div id="rewardBar" style="width:0%"></div></div>
+    <div class="muted" id="rewardProgress"></div>
+  </div>
+
+  <div class="card">
+    <h2>💫 Tiny wins count</h2>
+    <div class="muted">Starting counts. Trying again counts. Resetting instead of quitting counts. Staying in the story counts.</div>
+  </div>
+</section>
+
+<section id="practice" class="view">
+  <div class="practice">
+    <div style="font-size:44px">🎭✨</div>
+    <h2>Okayyy, you’ve got this.</h2>
+    <div class="prompt"><div class="muted">STARTER</div><div class="promptText" id="promptText">Add your starter words</div></div>
+    <div class="actions"><button class="secondary" id="hearPrompt">🔊 Hear it</button><button class="secondary" id="hidePrompt">🙈 Hide it</button></div>
+
+    <div class="recordBox">
+      <h2>🎙️ Wanna hear your run?</h2>
+      <div class="muted">Record it, listen back if you want, then decide how it felt. No scores.</div>
+      <button class="recordBtn" id="recordBtn">🎙️ Start My Run</button>
+      <div class="muted" id="recordStatus" style="margin-top:8px"></div>
+      <div class="playback" id="playback">
+        <audio id="audio" controls playsinline></audio>
+        <div class="feelRow">
+          <button class="feel" data-msg="Slayed it ✨">✨ Slayed it</button>
+          <button class="feel" data-msg="Almost there 💛">💛 Almost there</button>
+          <button class="feel" data-msg="One more shot 🔁">🔁 One more shot</button>
+        </div>
+        <div id="feelMsg" style="font-weight:900;margin-top:8px"></div>
+      </div>
+      <div class="muted" style="margin-top:10px;font-size:.74rem">Recordings stay on this device and disappear when the page/session is cleared. They are not uploaded.</div>
+    </div>
+  </div>
+</section>
+
+<section id="hints" class="view">
+  <div class="card">
+    <h2>🪄 My Hints</h2>
+    <div class="field"><label>Starter words</label><input id="starterInput" placeholder="First few words"></div>
+    <div class="field"><label>Hint 2</label><input id="hint2" placeholder="Short memory cue"></div>
+    <div class="field"><label>Hint 3</label><input id="hint3" placeholder="Short memory cue"></div>
+    <div class="field"><label>Hint 4</label><input id="hint4" placeholder="Short memory cue"></div>
+    <button class="save" id="saveHints">Save my hints ✨</button>
+    <div class="muted" id="hintSaved"></div>
+  </div>
+</section>
+
+<section id="parent" class="view">
+  <div class="card">
+    <h2>👨‍👩‍👧 Parent Mode</h2>
+    <p class="muted">Keep it light. The app rewards practice effort, not word-perfect performance.</p>
+    <div class="field"><label>Stage Stars per completed run</label><input id="pointsPerRun" inputmode="numeric" value="3"></div>
+    <button class="save" id="savePoints">Save point settings</button>
+  </div>
+
+  <div class="card">
+    <h2>🎁 Optional Reward</h2>
+    <p class="muted">Leave it off if rewards don’t help. If turned on, each performer can have their own reward.</p>
+    <div class="field"><label>Reward</label><select id="rewardEnabled"><option value="no">Off</option><option value="yes">On</option></select></div>
+    <div id="rewardFields">
+      <div class="field"><label>Reward name</label><input id="rewardName" placeholder="Roblox gift card, movie night..."></div>
+      <div class="field"><label>Reward value / description</label><input id="rewardValue" placeholder="$25, choose dinner, etc."></div>
+      <div class="field"><label>Points goal</label><input id="rewardGoal" inputmode="numeric" value="100"></div>
+    </div>
+    <button class="save" id="saveReward">Save reward settings</button>
+    <div class="muted" id="rewardSaved"></div>
+  </div>
+
+  <div class="card">
+    <h2>💛 If frustration shows up</h2>
+    <p class="muted">Offer a hint, another try, or permission to stop. Finishing calm is more useful than forcing one more run.</p>
+  </div>
+</section>
+</div>
+
+<script>
+const PROFILE_KEY="audition_family_profiles_v1";
+const ACTIVE_KEY="audition_family_active_v1";
+function loadProfiles(){try{return JSON.parse(localStorage.getItem(PROFILE_KEY))||[{id:"p1",name:"Performer 1"},{id:"p2",name:"Performer 2"}]}catch(e){return [{id:"p1",name:"Performer 1"},{id:"p2",name:"Performer 2"}]}}
+let profiles=loadProfiles();
+function activeId(){return localStorage.getItem(ACTIVE_KEY)||""}
+function activeProfile(){return profiles.find(p=>p.id===activeId())||null}
+function activeName(){return activeProfile()?.name||"Superstar"}
+function ns(k){return "audition_"+(activeId()||"none")+"_"+k}
+function selectProfile(id){localStorage.setItem(ACTIVE_KEY,id);location.reload()}
+function renderProfiles(){
+  const box=document.getElementById("profileButtons");box.innerHTML="";
+  profiles.forEach((p,i)=>{const b=document.createElement("button");b.className="profileBtn";b.innerHTML=`<span>${i?"🎤":"🌟"}</span>${p.name}`;b.onclick=()=>selectProfile(p.id);box.appendChild(b)})
+}
+renderProfiles();
+if(!activeId())document.getElementById("profileOverlay").classList.add("show");
+document.getElementById("switchProfile").onclick=()=>document.getElementById("profileOverlay").classList.add("show");
+document.getElementById("manageProfiles").onclick=()=>{
+  const a=prompt("Name for Performer 1",profiles[0].name);if(a&&a.trim())profiles[0].name=a.trim();
+  const b=prompt("Name for Performer 2",profiles[1].name);if(b&&b.trim())profiles[1].name=b.trim();
+  localStorage.setItem(PROFILE_KEY,JSON.stringify(profiles));renderProfiles()
+};
+
+const greetings=[
+  "Hey {name}! ✨","Main character energy, {name} 🎭","Okayyy, superstar 🌟",
+  "Let’s gooo, {name}! 💜","Slay mode: ON ✨","You’re back, {name}! 🎤",
+  "Ready for your moment? 💫","Glow-up practice time ✨"
+];
+const welcome=document.getElementById("welcome");
+if(activeId()){welcome.classList.add("show");document.getElementById("welcomeTitle").textContent=greetings[Math.floor(Math.random()*greetings.length)].replace("{name}",activeName())}
+document.getElementById("profileLabel").textContent=activeName()+" • small steps • big confidence";
+document.getElementById("enterApp").onclick=()=>{const c=document.getElementById("welcomeChime");try{c.currentTime=0;c.play().catch(()=>{})}catch(e){} setTimeout(()=>welcome.classList.remove("show"),120)};
+
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));t.classList.add("active");document.getElementById(t.dataset.view).classList.add("active")});
+document.getElementById("heroStart").onclick=()=>document.querySelector('[data-view="practice"]').click();
+
+function loadData(){try{return JSON.parse(localStorage.getItem(ns("data")))||{points:0,runs:0,todayKey:"",todayRuns:0,pointsPerRun:3}}catch(e){return {points:0,runs:0,todayKey:"",todayRuns:0,pointsPerRun:3}}}
+let data=loadData();
+function dayKey(){const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`}
+if(data.todayKey!==dayKey()){data.todayKey=dayKey();data.todayRuns=0}
+function saveData(){localStorage.setItem(ns("data"),JSON.stringify(data));render()}
+function loadReward(){try{return JSON.parse(localStorage.getItem(ns("reward")))||{enabled:"no",name:"",value:"",goal:100}}catch(e){return {enabled:"no",name:"",value:"",goal:100}}}
+function render(){
+ document.getElementById("points").textContent=data.points;document.getElementById("todayRuns").textContent=data.todayRuns;
+ const r=loadReward();const card=document.getElementById("rewardCard");card.classList.toggle("hidden",r.enabled!=="yes");
+ if(r.enabled==="yes"){document.getElementById("rewardText").textContent=(r.name||"Reward")+(r.value?" — "+r.value:"");document.getElementById("rewardProgress").textContent=`${data.points} / ${r.goal} points`;document.getElementById("rewardBar").style.width=Math.min(100,data.points/r.goal*100)+"%"}
+ document.getElementById("pointsPerRun").value=data.pointsPerRun||3;
+ document.getElementById("rewardEnabled").value=r.enabled;document.getElementById("rewardName").value=r.name;document.getElementById("rewardValue").value=r.value;document.getElementById("rewardGoal").value=r.goal;
+ document.getElementById("rewardFields").classList.toggle("hidden",r.enabled!=="yes");
+}
+render();
+
+function starter(){return localStorage.getItem(ns("starter"))||"Add your starter words"}
+function refreshHints(){document.getElementById("starterDisplay").textContent=starter();document.getElementById("promptText").textContent=starter();document.getElementById("starterInput").value=localStorage.getItem(ns("starter"))||"";["hint2","hint3","hint4"].forEach(id=>document.getElementById(id).value=localStorage.getItem(ns(id))||"")}
+refreshHints();
+document.getElementById("saveHints").onclick=()=>{localStorage.setItem(ns("starter"),document.getElementById("starterInput").value.trim());["hint2","hint3","hint4"].forEach(id=>localStorage.setItem(ns(id),document.getElementById(id).value.trim()));refreshHints();document.getElementById("hintSaved").textContent="Saved ✨"};
+
+let hidden=false;document.getElementById("hidePrompt").onclick=()=>{hidden=!hidden;document.getElementById("promptText").textContent=hidden?"••••••":starter()};
+document.getElementById("hearPrompt").onclick=()=>{if(!("speechSynthesis" in window))return;const u=new SpeechSynthesisUtterance(starter());u.rate=.92;u.pitch=1.05;speechSynthesis.cancel();speechSynthesis.speak(u)};
+
+let recorder=null,stream=null,chunks=[],url=null,started=0;
+const rb=document.getElementById("recordBtn"),status=document.getElementById("recordStatus"),playback=document.getElementById("playback"),audio=document.getElementById("audio");
+async function startRec(){
+ if(!navigator.mediaDevices?.getUserMedia||typeof MediaRecorder==="undefined"){status.textContent="Recording isn’t available in this browser.";return}
+ try{
+   stream=await navigator.mediaDevices.getUserMedia({audio:true});chunks=[];
+   let opts={};for(const t of ["audio/mp4","audio/webm;codecs=opus","audio/webm"]){if(MediaRecorder.isTypeSupported?.(t)){opts={mimeType:t};break}}
+   recorder=new MediaRecorder(stream,opts);started=Date.now();
+   recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};
+   recorder.onstop=()=>{const blob=new Blob(chunks,{type:recorder.mimeType||chunks[0]?.type||"audio/mp4"});if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(blob);audio.src=url;playback.classList.add("show");stream?.getTracks().forEach(t=>t.stop());stream=null;
+      const secs=(Date.now()-started)/1000;if(secs>=5){data.runs++;data.todayRuns++;data.points+=Math.max(0,Number(data.pointsPerRun)||3);saveData();status.textContent="Nice! Your run is ready to hear. ⭐"}else status.textContent="Quick test saved — try 5+ seconds for Stage Stars.";
+   };
+   recorder.start();rb.textContent="⏹️ Stop Recording";rb.classList.add("recording");status.textContent="Recording… go crush it. 🎭";
+ }catch(e){status.textContent=e?.name==="NotAllowedError"?"Microphone access is off. Allow it, then try again.":"Couldn’t start the mic this time."}
+}
+rb.onclick=()=>{if(recorder?.state==="recording"){recorder.stop();rb.textContent="🎙️ Start My Run";rb.classList.remove("recording")}else startRec()};
+document.querySelectorAll(".feel").forEach(b=>b.onclick=()=>document.getElementById("feelMsg").textContent=b.dataset.msg);
+
+document.getElementById("savePoints").onclick=()=>{data.pointsPerRun=Math.max(0,parseInt(document.getElementById("pointsPerRun").value||"3",10));saveData()};
+document.getElementById("rewardEnabled").onchange=()=>document.getElementById("rewardFields").classList.toggle("hidden",document.getElementById("rewardEnabled").value!=="yes");
+document.getElementById("saveReward").onclick=()=>{const r={enabled:document.getElementById("rewardEnabled").value,name:document.getElementById("rewardName").value.trim(),value:document.getElementById("rewardValue").value.trim(),goal:Math.max(1,parseInt(document.getElementById("rewardGoal").value||"100",10))};localStorage.setItem(ns("reward"),JSON.stringify(r));document.getElementById("rewardSaved").textContent="Saved ✨";render()};
+
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body></html>
